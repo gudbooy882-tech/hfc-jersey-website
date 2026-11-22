@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Edit Player • HFC{% endblock %}{% block content %}
+<section class="hero"><p class="eyebrow">HFC ADMIN</p><h1>Edit player</h1></section><section class="panel"><form method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<label>Name<input name="name" required value="{{ player.name }}"></label><label>Jersey number<input name="jersey_no" required value="{{ player.jersey_no }}"></label>
+<label>Jersey size<select name="jersey_size">{% for s in ['XS','S','M','L','XL','XXL','XXXL'] %}<option {% if player.jersey_size == s %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></label>
+<label>Shorts size<select name="shorts_size">{% for s in ['XS','S','M','L','XL','XXL','XXXL'] %}<option {% if player.shorts_size == s %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></label>
+<button>Save changes</button><a class="cancel" href="/dashboard">Cancel</a></form></section>{% endblock %}

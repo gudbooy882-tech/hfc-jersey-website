@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}Admin Login • HFC{% endblock %}{% block content %}
+<section class="hero"><p class="eyebrow">PRIVATE AREA</p><h1>Admin login</h1><p>Only the HFC administrator should sign in here.</p></section>
+<section class="panel"><form method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<label>Admin password<input type="password" name="password" required autocomplete="current-password"></label><button type="submit">Sign in</button></form></section>{% endblock %}

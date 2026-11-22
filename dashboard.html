@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Dashboard • HFC{% endblock %}{% block content %}
+<section class="hero"><p class="eyebrow">HFC ADMIN</p><h1>Dashboard</h1><p>{{ players|length }} registration(s) shown</p></section>
+<div class="toolbar"><form method="get" class="search"><input name="q" value="{{ search }}" placeholder="Search name or jersey number"><button>Search</button></form><a class="button secondary" href="/admin/export">Download CSV</a></div>
+<section class="panel table-panel"><div class="table-scroll"><table><thead><tr><th>Name</th><th>Jersey No.</th><th>Jersey</th><th>Shorts</th><th>Actions</th></tr></thead><tbody>
+{% for p in players %}<tr><td>{{ p.name }}</td><td>{{ p.jersey_no }}</td><td>{{ p.jersey_size }}</td><td>{{ p.shorts_size }}</td><td class="actions"><a href="/admin/edit/{{ p.id }}">Edit</a><form method="post" action="/admin/delete/{{ p.id }}" onsubmit="return confirm('Delete this registration?')"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="link danger">Delete</button></form></td></tr>{% else %}<tr><td colspan="5">No registrations yet.</td></tr>{% endfor %}
+</tbody></table></div></section><form method="post" action="/logout"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="secondary">Log out</button></form>{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block content %}
+<section class="hero"><p class="eyebrow">HFC TEAM</p><h1>Jersey Details</h1><p>Enter your details carefully before submitting.</p></section>
+<section class="panel"><h2>Player registration</h2><form method="post">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<label>Player name<input name="name" maxlength="80" required placeholder="Enter your full name"></label>
+<label>Jersey number<input name="jersey_no" maxlength="10" required placeholder="e.g. 10"></label>
+<label>Jersey size<select name="jersey_size" required><option value="">Select jersey size</option>{% for s in ['XS','S','M','L','XL','XXL','XXXL'] %}<option>{{ s }}</option>{% endfor %}</select></label>
+<label>Shorts size<select name="shorts_size" required><option value="">Select shorts size</option>{% for s in ['XS','S','M','L','XL','XXL','XXXL'] %}<option>{{ s }}</option>{% endfor %}</select></label>
+<button type="submit">Submit details</button></form></section>
+<p class="admin-link"><a href="/admin">Admin login</a></p>{% endblock %}
