@@ -1,1 +1,83 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit HFC Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #101820;
+            color: white;
+            padding: 25px;
+        }
+        .container {
+            max-width: 420px;
+            margin: auto;
+            background: #202b35;
+            padding: 25px;
+            border-radius: 12px;
+        }
+        h1 { color: #ffcc00; }
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border-radius: 6px;
+        }
+        button {
+            background: #ffcc00;
+            border: none;
+            font-weight: bold;
+        }
+        a { color: #ffcc00; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Edit Registration</h1>
+
+    <form method="POST">
+        <input type="hidden" name="csrf_token"
+               value="{{ csrf_token() }}">
+
+        <label>Player Name</label>
+        <input type="text" name="name"
+               value="{{ player.name }}" required>
+
+        <label>Jersey Number</label>
+        <input type="number" name="jersey_no"
+               value="{{ player.jersey_no }}" required>
+
+        <label>Jersey Size</label>
+        <select name="jersey_size" required>
+            {% for size in ['XS','S','M','L','XL','XXL'] %}
+            <option value="{{ size }}"
+                {% if player.jersey_size == size %}selected{% endif %}>
+                {{ size }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <label>Shorts Size</label>
+        <select name="shorts_size" required>
+            {% for size in ['XS','S','M','L','XL','XXL'] %}
+            <option value="{{ size }}"
+                {% if player.shorts_size == size %}selected{% endif %}>
+                {{ size }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <p><a href="{{ url_for('dashboard') }}">Back to Dashboard</a></p>
+</div>
+
+</body>
+</html>
+
