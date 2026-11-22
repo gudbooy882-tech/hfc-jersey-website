@@ -1,1 +1,104 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HFC Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #101820;
+            color: white;
+            padding: 20px;
+        }
+        h1 { color: #ffcc00; }
+        input, button, a {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 6px;
+        }
+        input { max-width: 180px; }
+        button { cursor: pointer; }
+        .table-wrap { overflow-x: auto; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+            margin-top: 20px;
+            background: #202b35;
+        }
+        th, td {
+            border: 1px solid #45515c;
+            padding: 10px;
+            text-align: left;
+        }
+        th { background: #303d49; color: #ffcc00; }
+        a { color: #ffcc00; }
+        .danger { color: #ff7777; }
+    </style>
+</head>
+<body>
+
+<h1>HFC Admin Dashboard</h1>
+
+<p>Total registrations: {{ players|length }}</p>
+
+<form method="GET" action="{{ url_for('dashboard') }}">
+    <input type="text" name="search"
+           placeholder="Search player..."
+           value="{{ search }}">
+    <button type="submit">Search</button>
+</form>
+
+<p>
+    <a href="{{ url_for('export') }}">Export CSV</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</p>
+
+<div class="table-wrap">
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Jersey No.</th>
+        <th>Jersey Size</th>
+        <th>Shorts Size</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for player in players %}
+    <tr>
+        <td>{{ player.id }}</td>
+        <td>{{ player.name }}</td>
+        <td>{{ player.jersey_no }}</td>
+        <td>{{ player.jersey_size }}</td>
+        <td>{{ player.shorts_size }}</td>
+        <td>
+            <a href="{{ url_for('edit_player', player_id=player.id) }}">
+                Edit
+            </a>
+
+            <form method="POST"
+                  action="{{ url_for('delete_player', player_id=player.id) }}"
+                  style="display:inline;">
+                <input type="hidden" name="csrf_token"
+                       value="{{ csrf_token() }}">
+                <button type="submit"
+                        onclick="return confirm('Delete this registration?')">
+                    Delete
+                </button>
+            </form>
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="6">No registrations found.</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+</body>
+</html>
+
