@@ -1,1 +1,117 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HFC Admin Login</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #101827;
+    color: white;
+}
+
+.container {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 30px;
+    background: #1e293b;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+h1 {
+    text-align: center;
+    color: #38bdf8;
+}
+
+.subtitle {
+    text-align: center;
+    color: #cbd5e1;
+    margin-bottom: 25px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin-top: 12px;
+    border: 1px solid #475569;
+    border-radius: 8px;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    background: #0284c7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.message {
+    padding: 12px;
+    margin-bottom: 12px;
+    background: #7f1d1d;
+    border-radius: 8px;
+}
+
+a {
+    display: block;
+    text-align: center;
+    color: #38bdf8;
+    margin-top: 20px;
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>HFC ADMIN</h1>
+
+<p class="subtitle">Admin Dashboard Login</p>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% for category, message in messages %}
+<div class="message">{{ message }}</div>
+{% endfor %}
+{% endwith %}
+
+<form method="POST" action="/admin">
+
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+<input
+type="password"
+name="password"
+placeholder="Enter Admin Password"
+required
+>
+
+<button type="submit">LOGIN</button>
+
+</form>
+
+<a href="/">Back to Home</a>
+
+</div>
+
+</body>
+</html>
+
